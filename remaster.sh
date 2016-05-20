@@ -18,7 +18,7 @@ set -e
 #
 # Feel free to include additional extension by adding them to the following array:
 
-readonly EXTENSIONS=(bash openssh acpid)
+readonly EXTENSIONS=(bash openssh acpid curl iproute2 grub2 parted)
 
 # Global variables
 readonly MIRROR_URL=http://distro.ibiblio.org/tinycorelinux/7.x/x86
@@ -135,6 +135,12 @@ customize_vagrant() {
   echo "vagrant	ALL=NOPASSWD: ALL" >> $BUILD/etc/sudoers
   sed -i 's/tty1::respawn:\/sbin\/getty -nl \/sbin\/autologin 38400 tty1/tty1::respawn:\/sbin\/getty 38400 tty1/' $BUILD/etc/inittab
   echo "/usr/local/etc/init.d/openssh start" >> $BUILD/opt/bootlocal.sh
+  local pubkey_url="http://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub"
+  mkdir -p $BUILD/home/vagrant/.ssh
+  curl --insecure --location "$pubkey_url" > $BUILD/home/vagrant/.ssh/authorized_keys
+  chown -R 1002 $BUILD/home/vagrant/.ssh
+  chmod -R go-rwsx $BUILD/home/vagrant/.ssh
+
 }
 
 customize_acpid() {
