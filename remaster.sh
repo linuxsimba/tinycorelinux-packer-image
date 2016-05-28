@@ -18,7 +18,7 @@ set -e
 #
 # Feel free to include additional extension by adding them to the following array:
 
-readonly EXTENSIONS=(bash openssh acpid curl iproute2 grub2 parted)
+readonly EXTENSIONS=(bash openssh acpid curl iproute2 grub2 parted rsync)
 
 # Global variables
 readonly MIRROR_URL=http://distro.ibiblio.org/tinycorelinux/7.x/x86
@@ -33,6 +33,7 @@ main() {
   unpack_extensions
   customize_vagrant
   customize_acpid
+  add_tce_directory
   repack_core
   remaster_iso
   calculate_checksum
@@ -143,6 +144,10 @@ customize_vagrant() {
 
 }
 
+add_tce_directory() {
+  mkdir $BUILD/tce
+}
+
 customize_acpid() {
   mkdir -p $BUILD/usr/local/etc/acpi/events/
   mkdir -p $BUILD/home/tc/.acpi/
@@ -163,7 +168,7 @@ case $1 in
     # popup $1;;
 esac
 EOF
-  chown -R 1001 $BUILD/home/tc/.acpi
+  chown -R 1001 $BUILD/home/tc
   chmod 755 $BUILD/home/tc/.acpi/gen.sh
 
   echo "acpid" >> $BUILD/opt/bootlocal.sh
