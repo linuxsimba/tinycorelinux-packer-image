@@ -11,7 +11,7 @@ Why would I want this?
 
 You want this if you need a mean and lean Linux that starts in RAM. This is
 useful to create Packer images from distributions that don't provide an
-installation medium that can be directly used by Packer. 
+installation medium that can be directly used by Packer.
 
 
 Packer Configuration
@@ -22,17 +22,17 @@ Packer Configuration
   * Configures and starts opensshd
   * Installs Bash
   * Adds SCSI drivers and loads them during boot
-  
+
 
 Customization
 -------------
 
 It's easily possible to add additional
-[extensions](http://distro.ibiblio.org/tinycorelinux/5.x/x86/tcz/) to the
+[extensions](http://distro.ibiblio.org/tinycorelinux/7.x/x86/tcz/) to the
 image. Just add the names of the extensions to the `EXTENSIONS` array in the
-script. 
+script.
 
-Adding additional changes to configurations in the image can be added to the 
+Adding additional changes to configurations in the image can be added to the
 `customize*` functions.
 
 
@@ -43,7 +43,7 @@ You need a few tools to run this script. It was developed on RHEL but should run
 on any linux that has the following tools available:
 
   * unsquashfs (squashfs-tools)
-  * advdef (advancecomp) 
+  * advdef (advancecomp)
   * mkisofs (mkisofs)
 
 
